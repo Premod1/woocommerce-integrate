@@ -6,13 +6,31 @@ A powerful and seamless integration between Laravel and WooCommerce, allowing yo
 
 This project serves as a bridge between a Laravel-based system (like an ERP or CRM) and a WooCommerce store. It leverages the official WooCommerce REST API to fetch and manage products, orders, and more, providing a robust foundation for building custom multi-platform e-commerce solutions.
 
-## ✨ Features
+## 📸 Screenshots
 
--   **Product Management**: View, list, and detail WooCommerce products.
--   **Order Tracking**: Access and view customer orders from your WooCommerce store.
--   **Service Layer Architecture**: Clean and reusable `WooCommerceService` for all API interactions.
--   **Configurable**: Easily configure store credentials via environment variables.
--   **Tailwind CSS Integration**: Beautifully designed UI for viewing products and orders (standard Laravel stack).
+### Order Detail View
+![Order Detail Screenshot](public/screenshots/order-detail.png)
+
+## 🗺️ Routing & API Integration
+
+The application defines the following key routes to interact with your WooCommerce store:
+
+| Route | Name | Method | Description |
+| :--- | :--- | :--- | :--- |
+| `/` | `products.index` | `GET` | Lists all products from your WooCommerce store. |
+| `/product/{id}` | `products.show` | `GET` | Displays detailed information for a specific product. |
+| `/orders` | `orders.index` | `GET` | Lists all recent orders from your store. |
+| `/orders/{id}` | `orders.show` | `GET` | **(Shown in screenshot)** Displays full order details, including line items, shipping info, and totals. |
+
+### Detail View Logic: `orders.show`
+The order detail view (captured in the screenshot) fetches data using the `WooCommerceService`:
+```php
+public function showOrder($id)
+{
+    $order = $this->wooCommerce->getOrder($id);
+    return view('woocommerce.order-detail', compact('order'));
+}
+```
 
 ## 🛠 Tech Stack
 
